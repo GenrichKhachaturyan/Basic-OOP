@@ -1,23 +1,26 @@
 ﻿using System;
 namespace Homework4
 {
-    public class Building
+    sealed class Building
     {
-        private byte number = numBuild;
-        private byte height;
-        private byte floors;
-        private short flats;
-        private byte entrance;
+        private static int numBuild = 1;
 
-        static byte numBuild = 1;
+        private int number;
 
+        private double height;
 
+        private int floors;
 
+        private int flats;
 
-        public Building(byte height,byte floors,short flats, byte entrance)
+        private int entrance;
+
+        
+        internal Building(double height, int floors, int flats, int entrance)
         {
-            CreateNumBuilding();
-            //установка высоты
+            //Установка номера здания
+            this.number = numBuild++;
+            //Установка высоты
             if (height < 0)
             {
                 throw new Exception("You Input inccorrect values");
@@ -56,19 +59,19 @@ namespace Homework4
 
         }
 
-        public Building()
+        internal Building()
         {
-            CreateNumBuilding();
+            this.number = numBuild++;
         }
 
         /// <summary>
         /// Высота каждого этажа
         /// </summary>
         /// <returns></returns>
-        public float GetFloorHeightCalculation()
+        public double GetFloorHeightCalculation()
         {
-            float heightFloor;
-            heightFloor = this.height / this.floors;
+            double heightFloor;
+            heightFloor = Math.Round(this.height / this.floors,2);
 
             return heightFloor;
         }
@@ -77,21 +80,21 @@ namespace Homework4
         /// Вычисление кол-ва квартир в подьезде
         /// </summary>
         /// <returns></returns>
-        public short GetFlatsInEntranceCalculation()
+        public int GetFlatsInEntranceCalculation()
         {
-            short flatsInEntrance;
-            flatsInEntrance = (short)(this.flats / this.entrance);
+            int flatsInEntrance;
+            flatsInEntrance = this.flats / this.entrance;
 
-            return (short)flatsInEntrance;
+            return flatsInEntrance;
         }
 
         /// <summary>
         /// Вычисление кол-ва квартир на этаже
         /// </summary>
         /// <returns></returns>
-        public short GetFlatsInFloorCalculation()
+        public int GetFlatsInFloorCalculation()
         {
-            short flatsInFloor = (short)((this.flats / this.floors)/this.entrance);
+            int flatsInFloor = (this.flats / this.floors)/this.entrance;
             return flatsInFloor;
         }
 
@@ -100,7 +103,7 @@ namespace Homework4
         /// </summary>
         /// <param name="floors">Кол-во этажей</param>
         /// <exception cref="Exception">Кол-во не может быть больше 17 или меньше 1</exception>
-        public void SetFloors(byte floors)
+        public void SetFloors(int floors)
         {
             if(floors < 0 || floors > 17)
             {
@@ -115,7 +118,7 @@ namespace Homework4
         /// Возращает кол-ва этажей
         /// </summary>
         /// <returns></returns>
-        public byte GetFloors()
+        public int GetFloors()
         {
             return floors;
         }
@@ -125,7 +128,7 @@ namespace Homework4
         /// </summary>
         /// <param name="flats">Кол-во квартир</param>
         /// <exception cref="Exception">Кол-во квартир не может быть меньше 1</exception>
-        public void SetFlats(short flats)
+        public void SetFlats(int flats)
         {
             if(flats < 0)
             {
@@ -141,7 +144,7 @@ namespace Homework4
         /// Возращает кол-ва квартир
         /// </summary>
         /// <returns></returns>
-        public short GetFlats()
+        public int GetFlats()
         {
             return flats;
         }
@@ -151,7 +154,7 @@ namespace Homework4
         /// </summary>
         /// <param name="height">Высота здания</param>
         /// <exception cref="Exception"> высота здания не может быть меньше 1</exception>
-        public void SetHeight(byte height)
+        public void SetHeight(double height)
         {
             if(height < 0)
             {
@@ -168,7 +171,7 @@ namespace Homework4
         /// Возращает высоту здания
         /// </summary>
         /// <returns></returns>
-        public byte GetHeight()
+        public double GetHeight()
         {
             return height;
         }
@@ -178,7 +181,7 @@ namespace Homework4
         /// </summary>
         /// <param name="entrance">Кол-во подьездов</param>
         /// <exception cref="Exception">Кол-во подьездов не может быть меньше 1</exception>
-        public void SetEntrance(byte entrance)
+        public void SetEntrance(int entrance)
         {
             if(entrance < 0)
             {
@@ -193,7 +196,7 @@ namespace Homework4
         /// Возвращает кол-во подьездов
         /// </summary>
         /// <returns></returns>
-        public byte GetEntrance()
+        public int GetEntrance()
         {
             return entrance;
         }
@@ -201,17 +204,9 @@ namespace Homework4
         /// Возвращает номер дома
         /// </summary>
         /// <returns></returns>
-        public byte Number()
+        public int Number()
         {
             return number;
-        }
-
-        /// <summary>
-        /// Инициализирует уникальный номер дома
-        /// </summary>
-        private void CreateNumBuilding()
-        {
-            numBuild++;
         }
     }
 }
